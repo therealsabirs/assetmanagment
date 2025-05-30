@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Assign Hardware</h2>
+    <form method="post" class="card p-4 shadow">
+        <!-- Select Employee with Searchable ComboBox -->
+        <div class="mb-3">
+            <label class="form-label">Select Employee</label>
+            <select name="employee_id" id="employee-select" class="form-select" required>
+                <option value="">-- Select Employee --</option>
+                {% for employee in employees %}
+                <option value="{{ employee.employee_id }}">{{ employee.employee_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Select Hardware -->
+        <div class="mb-3">
+            <label class="form-label">Select Hardware</label>
+            <select name="hardware_id" class="form-select" required>
+                <option value="">-- Select Hardware --</option>
+                {% for hardware in available_hardware %}
+                <option value="{{ hardware.id }}">{{ hardware.type }} ({{ hardware.serial_number }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">Assign Hardware</button>
+    </form>
+</div>
+
+<!-- Include Select2 Library -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+<!-- Activate Select2 -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Convert the employee dropdown into a searchable combobox
+        $('#employee-select').select2({
+            placeholder: "-- Select Employee --",
+            allowClear: true
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Unassign Hardware</h2>
+
+    <form method="post" class="card p-4 shadow">
+        <div class="mb-3">
+            <label class="form-label">Select Employee</label>
+            <select name="employee_id" class="form-select" id="employeeSelect">
+                <option value="">-- Select Employee --</option>
+                {% for employee in employees %}
+                <option value="{{ employee.employee_id }}">{{ employee.employee_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Select Hardware</label>
+            <select name="hardware_id" class="form-select" id="hardwareSelect">
+                <option value="">-- Select Employee First --</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-danger w-100">Unassign Hardware</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('employeeSelect').addEventListener('change', function () {
+        var employeeId = this.value;
+        var hardwareSelect = document.getElementById('hardwareSelect');
+
+        hardwareSelect.innerHTML = '<option value="">-- Loading --</option>'; // Show loading state
+
+        if (employeeId) {
+            fetch(`/get_assigned_hardware/${employeeId}`)
+                .then(response => response.json())  // Parse response as JSON
+                .then(data => {
+                    hardwareSelect.innerHTML = ''; // Clear dropdown
+                    if (data.length > 0) {
+                        data.forEach(hardware => {
+                            var option = document.createElement('option');
+                            option.value = hardware.id;
+                            option.textContent = `${hardware.type} (${hardware.serial_number})`;
+                            hardwareSelect.appendChild(option);
+                        });
+                    } else {
+                        hardwareSelect.innerHTML = '<option value="">No assigned hardware</option>';
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching hardware:", error);
+                    hardwareSelect.innerHTML = '<option value="">Error loading hardware</option>';
+                });
+        } else {
+            hardwareSelect.innerHTML = '<option value="">-- Select Employee First --</option>';
+        }
+    });
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Dashboard</h2>
+
+    <!-- Statistics Overview -->
+    <div class="row">
+        <!-- Total Hardware -->
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Hardware</h5>
+                    <h2 id="total_hardware">0</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Available Hardware -->
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Available Hardware</h5>
+                    <h2 id="available_hardware">0</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Employees -->
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Employees</h5>
+                    <h2 id="total_employees">0</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hardware Breakdown -->
+    <h3 class="mt-4">Hardware Breakdown</h3>
+    <div class="row" id="hardware_breakdown">
+        <!-- Dynamically added cards here -->
+    </div>
+</div>
+
+<!-- Fetch Dashboard Stats -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/dashboard_stats')
+            .then(response => response.json())
+            .then(data => {
+                // Set main stats
+                document.getElementById('total_hardware').innerText = data.total_hardware;
+                document.getElementById('available_hardware').innerText = data.available_hardware;
+                document.getElementById('total_employees').innerText = data.total_employees;
+
+                // Generate hardware breakdown cards
+                const breakdownContainer = document.getElementById('hardware_breakdown');
+                breakdownContainer.innerHTML = '';
+
+                for (let type in data.hardware_types) {
+                    const available = data.available_by_type[type] || 0;
+                    const assigned = data.assigned_by_type[type] || 0;
+
+                    const card = `
+                        <div class="col-md-4">
+                            <div class="card border-dark mb-3">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">${type}</h5>
+                                    <p class="text-muted">Total: ${data.hardware_types[type]}</p>
+                                    <p class="text-success">Available: ${available}</p>
+                                    <p class="text-danger">Assigned: ${assigned}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    breakdownContainer.innerHTML += card;
+                }
+            })
+            .catch(error => console.error("Error fetching dashboard stats:", error));
+    });
+</script>
+
+{% endblock %}

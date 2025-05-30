@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Edit Hardware</h2>
+    <form method="post" class="card p-4 shadow">
+        <div class="mb-3">
+            <label class="form-label">Hardware ID</label>
+            <input type="text" name="hardware_id" class="form-control" value="{{ hardware.id }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Type</label>
+            <input type="text" name="type" class="form-control" value="{{ hardware.type }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Make</label>
+            <input type="text" name="make" class="form-control" value="{{ hardware.make }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Model</label>
+            <input type="text" name="model" class="form-control" value="{{ hardware.model }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Serial Number</label>
+            <input type="text" name="serial_number" class="form-control" value="{{ hardware.serial_number }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Date of Purchase</label>
+            <input type="date" name="date_of_purchase" class="form-control" value="{{ hardware.date_of_purchase }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Warranty Expire On</label>
+            <input type="date" name="warranty_expire_on" class="form-control" value="{{ hardware.warranty_expire_on }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">warranty Days Left</label>
+            <input type="text" name="warranty_days_left" class="form-control" value="{{ hardware.warranty_days_left }}" required>
+        </div>
+        <label class="form-label">Status</label>
+            <select name="status" class="form-select">
+                <option value="Active" {% if hardware.status == 'Active' %}selected{% endif %}>Active</option>
+                <option value="Inactive" {% if hardware.status == 'Inactive' %}selected{% endif %}>Inactive</option>
+            </select>
+        <div class="mb-3">
+            <label class="form-label">Vendor</label>
+            <input type="text" name="vendor" class="form-control" value="{{ hardware.vendor }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Adp Status</label>
+            <input type="text" name="adp_status" class="form-control" value="{{ hardware.adp_status }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Location</label>
+            <select name="location" class="form-select">
+                <option value="Mumbai" {% if hardware.location == 'Mumbai' %}selected{% endif %}>Mumbai</option>
+                <option value="Bangalore" {% if hardware.location == 'Bangalore' %}selected{% endif %}>Bangalore</option>
+                <option value="Trivandrum" {% if hardware.location == 'Trivandrum' %}selected{% endif %}>Trivandrum</option>
+                <option value="Gurugram" {% if hardware.location == 'Gurugram' %}selected{% endif %}>Gurugram</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Attachment</label>
+            <input type="file" name="attachment" class="form-control">
+            {% if hardware.attachment %}
+                <p>Current Attachment: <a href="{{ url_for('download_hardware_file', id=hardware.id) }}">Download</a></p>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Update Hardware</button>
+    </form>
+</div>
+{% endblock %}

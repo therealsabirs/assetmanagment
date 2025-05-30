@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Add Employee</h2>
+    <form method="post" class="card p-4 shadow">
+        <div class="mb-3">
+            <label class="form-label">Employee ID</label>
+            <input type="text" name="employee_id" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="employee_name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <textarea name="address" class="form-control"></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Phone</label>
+            <input type="text" name="phone_number" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email_id" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Gender</label>
+            <select name="gender" class="form-select">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Date of Joining</label>
+            <input type="date" name="date_of_joining" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Date of Exit</label>
+            <input type="date" name="date_of_exit" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-control">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Location</label>
+            <select name="location" class="form-select">
+                <option value="Mumbai">Mumbai</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Trivandrum">Trivandrum</option>
+                <option value="Gurugram">Gurugram</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Add Employee</button>
+    </form>
+</div>
+{% endblock %}

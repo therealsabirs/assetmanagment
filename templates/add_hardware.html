@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Add Hardware</h2>
+    <form method="post" enctype="multipart/form-data" class="card p-4 shadow">
+        <div class="mb-3">
+            <label class="form-label">Hardware ID</label>
+            <input type="text" name="id" class="form-control" required>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Type</label>
+            <input type="text" name="type" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Make</label>
+            <input type="text" name="make" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Model</label>
+            <input type="text" name="model" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Serial Number</label>
+            <input type="text" name="serial_number" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date of Purchase</label>
+            <input type="date" name="date_of_purchase" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Warranty Expire On</label>
+            <input type="date" name="warranty_expire_on" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Warranty Days Left</label>
+            <input type="number" name="warranty_days_left" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-select">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Vendor</label>
+            <input type="text" name="vendor" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">ADP Status</label>
+            <input type="text" name="adp_status" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Attachment</label>
+            <input type="file" name="attachment" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Location</label>
+            <select name="location" class="form-select">
+                <option value="Mumbai">Mumbai</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Trivandrum">Trivandrum</option>
+                <option value="Gurugram">Gurugram</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">Add Hardware</button>
+    </form>
+</div>
+{% endblock %}
